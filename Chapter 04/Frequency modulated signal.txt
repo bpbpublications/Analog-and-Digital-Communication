@@ -1,0 +1,42 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+A_c = 1                     # Carrier amplitude
+f_c = 8                     # Carrier frequency
+f_m = 1                     # Modulation frequency
+A_m = 1                     # Modulation amplitude
+fd = 4                      # Frequency deviation
+
+t_max = 4
+fs = 100
+t = np.linspace(0, t_max, t_max*fs)
+
+# Carrier and modulation signals definition
+carrier = A_c*np.cos(2*np.pi*f_c*t)
+modulator = A_m*np.cos(2*np.pi*f_m*t)
+
+# FM signal
+dt = t[1]-t[0]
+fm = A_c*np.cos(2*np.pi*f_c*t+2*np.pi*fd*np.cumsum(modulator*dt))
+
+plt.subplot(3,1,1)
+plt.title('Modulating signal')
+plt.plot(t, modulator, 'k')
+plt.xlabel('Time (s)')  
+plt.ylabel('Amplitude') 
+plt.subplot(3,1,2) 
+plt.title('Carrier signal')
+plt.plot(t, carrier, 'k')  
+plt.xlabel('Time (s)')  
+plt.ylabel('Amplitude')
+plt.subplot(3,1,3)
+plt.title('FM signal')
+plt.plot(t, fm, 'k')  
+plt.legend()  
+plt.xlabel('Time (s)')  
+plt.ylabel('Amplitude')  
+
+plt.subplots_adjust(hspace=1)
+plt.rc('font', size=15)
+fig = plt.gcf()
+fig.set_size_inches(16, 9)

@@ -1,0 +1,15 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(0, 10, 100)
+sig = 2 * np.sin(2 * t)
+X = np.random.normal(0, 1, len(t))
+sig_noise = sig + X
+
+plt.plot(t, sig_noise, '--k')
+plt.plot(t, sig, 'k')
+plt.legend(['Signal with AWGN', 'Original Signal'])
+plt.xlabel('time')
+plt.ylabel('Values')
+plt.grid(True)
+plt.show()

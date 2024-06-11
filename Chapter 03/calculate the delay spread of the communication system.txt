@@ -1,0 +1,15 @@
+import numpy as np
+time = np.array([1, 2, 4, 6, 8])
+powerdB = np.array([-20, -20, -10, 0, -10])
+power = 10 ** (powerdB / 10)
+tt = 0
+ts = 0
+t2s = 0
+for i in range(len(time)):
+    t = time[i] * power[i]
+    ts = ts + t
+    t2 = (time[i]) ** 2 * power[i]
+    t2s = t2s + t2
+    tt = tt + time[i]
+delay_spread = np.sqrt(t2s / tt - (ts / tt))
+print(' Delay Spread (microsec)= ', delay_spread)

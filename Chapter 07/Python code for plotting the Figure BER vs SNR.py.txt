@@ -1,0 +1,25 @@
+import numpy as np
+from scipy.special import erfc
+import matplotlib.pyplot as plt
+
+SNRdB = np.arange(0, 30)
+SNR = 10 ** (SNRdB / 10)
+BER_BPSK =0.5*erfc(np.sqrt(SNR))
+BER_QPSK = 1 / np.log2(4) * erfc(np.sqrt(SNR * np.log2(4)) * np.sin(np.pi / 4))
+BER_8PSK = 1 / np.log2(8) * erfc(np.sqrt(SNR * np.log2(8)) * np.sin(np.pi / 8))
+BER_16PSK = 1 / np.log2(16) * erfc(np.sqrt(SNR * np.log2(16)) * np.sin(np.pi / 16))
+BER_32PSK = 1 / np.log2(32) * erfc(np.sqrt(SNR * np.log2(32)) * np.sin(np.pi / 32))
+
+plt.semilogy(SNRdB, BER_BPSK, 'k', linewidth=1.0)
+plt.semilogy(SNRdB, BER_QPSK, 'k>-', linewidth=1.0)
+plt.semilogy(SNRdB, BER_8PSK, 'k<--', linewidth=1.0)
+plt.semilogy(SNRdB, BER_16PSK, 'k--', linewidth=2.0)
+plt.semilogy(SNRdB, BER_32PSK, 'k*-', linewidth=1.0)
+plt.title('BPSK over AWGN Simulation')
+plt.xlabel('SNR in dB')
+plt.ylabel('Probability of Error')
+plt.legend(['BPSK','QPSK','8PSK','16PSK','32PSK'])
+plt.axis('tight')
+plt.grid(True)
+plt.ylim(.00000001,1)
+plt.xlim(0,25)

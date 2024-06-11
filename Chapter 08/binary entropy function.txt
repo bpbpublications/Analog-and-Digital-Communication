@@ -1,0 +1,11 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+prob = np.arange(0, 1.01, 0.0001)
+H = np.zeros(len(prob))
+for i in range(len(prob)):
+    H[i] = -prob[i]*np.log2(prob[i]) - (1-prob[i])*np.log2(1-prob[i])
+plt.plot(prob, H,'k')
+plt.ylim(0,1)
+plt.xlim(0,1)
+plt.show()

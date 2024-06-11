@@ -1,0 +1,32 @@
+
+import numpy as np  
+import matplotlib.pyplot as plt  
+
+Am = 4
+nbit = 3
+f = 1
+fs = 90
+t = np.arange(0, np.pi, 1/fs)
+y = Am * np.sin(2*np.pi*f*t)-1
+Nsamples = len(y)
+quantised_out = np.zeros(Nsamples)
+delta = 2*Am/(2**nbit)
+Llow = -Am-1+delta/2
+Lhigh = Am-1-delta/2
+for i in np.arange(Llow, Lhigh+delta, delta):
+    for j in range(Nsamples):
+        if (i-delta/2 < y[j]) and (y[j] < i+delta/2):
+            quantised_out[j] = i
+
+plt.figure(figsize=(10,9))
+plt.subplot(3,1,1)
+plt.stem(t, y, 'k')
+plt.legend(["Non Quantized Signal"], loc='lower left')
+plt.subplot(3,1,2)
+plt.stem(t, quantised_out,'k')
+plt.legend(["Quantized Signal"], loc='lower left')
+error = y - quantised_out
+plt.subplot(3,1,3)
+plt.stem(t, error, 'k')
+plt.ylim([-3, 3])
+plt.legend(["Quantization Error"], loc='lower right')

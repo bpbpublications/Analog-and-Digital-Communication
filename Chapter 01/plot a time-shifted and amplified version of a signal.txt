@@ -1,0 +1,17 @@
+#Importing libraries 
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import signal
+from scipy.fftpack import fft, fftshift
+K= 5  # Gain of the System
+N= 1000
+time = np.linspace(-N+1, N-1, num=2*N+1)
+Triag_Wave = 2*K *( abs( np.mod((time-1/4),1) - 1/2) )
+plt.plot(time,Triag_Wave, 'k')
+time_shift = -175 # for shifting right used -ve value and +ve value for left
+Triag_Wave_shift = 2*K *( abs( np.mod(((time-time_shift)-1/4),1) - 1/2))
+plt.plot(time-time_shift,Triag_Wave_shift,'--k')
+plt.xlabel('time')
+plt.ylabel('Signal')
+plt.legend(["Original","Shifted Wave"])
+plt.show()

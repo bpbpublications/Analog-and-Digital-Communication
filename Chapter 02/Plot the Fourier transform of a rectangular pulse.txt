@@ -1,0 +1,23 @@
+# Importing libraries 
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import signal
+from scipy.fftpack import fft, fftshift
+pulse_length = 50
+total_length = 200
+# Create the rectangular pulse
+pulse = np.zeros(total_length)
+pulse[total_length//2 - pulse_length//2:total_length//2 + pulse_length//2] = 1
+plt.plot(pulse,'k')
+plt.xlabel('time')
+plt.ylabel('Signal')
+plt.show()
+##################### Frequency Spectrum 
+A = fft(pulse, 2048) / (len(pulse)/2.0)
+freq = np.linspace(-0.5, 0.5, len(A))
+response = 20 * np.log10(np.abs(fftshift(A / abs(A).max())))
+plt.plot(freq, response,'k')
+plt.axis([-0.5, 0.5, -120, 0])
+plt.title("Frequency response of the pulse wave")
+plt.ylabel("Normalized magnitude [dB]")
+plt.xlabel("Normalized frequency [cycles per sample]")
